@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HUD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+
+<style>
+
+  :root {
+    --liveColor: #555555;
+    --activeBaseBG: #007700;
+    --activeTitleBG: #002200;
+  }
+
+  body {
+    font-family: "Cal Sans", sans-serif;
+    background-color: #00437b;
+  }
+
+  .splitscreen {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+
+  }
+
+  .left {
+    background-color: #222222;
+    left: 0;
+  }
+
+  .right {
+    background-color: #333333;
+    right: 0;
+  }
+
+.topRight {
+  background-color: #111111;
+  height: 10%;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.NDI {
+  background-color: #110055;
+  height: 56%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+}
+
+.alerts {
+  background-color: #1A1A1A;
+  height: 10%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+}
+
+.alertText {
+  display: flex;
+  background-color: #000000;
+  color: #FF0000;
+  animation-name: alertFlash;
+  animation-duration: .5s;
+  animation-iteration-count: 3;
+
+  font-size: 48px;
+  justify-content: center;
+  text-align: center;
+  vertical-align: baseline;
+  padding: 5px 5px 5px 5px;
+  margin: 10px 2.5% 10px 2.5%;
+}
+
+@keyframes alertFlash {
+  from {background-color: #000000}
+  to {background-color: #FFFFFF}
+}
+
+.rundownItemBase {
+  display: flex;
+  background-color: #000000;
+  height: 10%;
+  width: 95%;
+  margin: 10px 2.5% 10px 2.5%;
+  padding: 7.5px 7.5px 7.5px 7.5px;
+  color: #DDDDDD;
+  align-items: center;
+  justify-content: space-between;
+
+
+
+}
+
+.rundownElements {
+  display: flex;
+  background-color: #000;
+  color: #FFFFFF;
+  width: 70%;
+  height: 75px;
+  text-align: left;
+  vertical-align: baseline;
+  font-size: 48px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+
+
+
+
+.itemNumber {
+  display: flex;
+  background-color: #000;
+  color: #FFFFFF;
+  width: 75px;
+  height: 75px;
+  text-align: center;
+  vertical-align: baseline;
+  font-size: 48px;
+  justify-content: center;
+  align-items: center;
+}
+
+.itemTime {
+  display: flex;
+  background-color: #000;
+  color: #FFFFFF;
+  width: 90px;
+  height: 75px;
+  text-align: center;
+  vertical-align: baseline;
+  font-size: 48px;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.activeElement {
+  background-color: var(--activeBaseBG);
+}
+
+.activeTitle {
+  background-color: var(--activeTitleBG);
+}
+
+.liveText {
+  color: var(--liveColor);
+  font-size: 48px;
+  padding: 0px 0px 0px 10px;
+
+
+}
+
+
+</style>
+</head>
+<body>
+
+  <div class="splitscreen left">
+
+  <div class="rundownItemBase">
+    <div class="itemNumber">1</div>
+    <div class="rundownElements">INTRO</div>
+    <div class="itemTime">15</div>
+  </div>
+
+<div class="rundownItemBase activeElement">
+  <div class="itemNumber activeTitle">2</div>
+  <div class="rundownElements activeTitle">STATS</div>
+  <div class="itemTime activeTitle">60</div>
+</div>
+
+<div class="rundownItemBase">
+  <div class="itemNumber">3</div>
+  <div class="rundownElements">HIGHLIGHTS</div>
+  <div class="itemTime">80</div>
+</div>
+
+  <div class="rundownItemBase">RUNDOWN 2</div>
+  <div class="rundownItemBase">RUNDOWN 3</div>
+
+  <div class="alerts">
+    <div class="alertText">speak up!</div>
+  </div>
+
+
+  </div>
+
+  <div class="splitscreen right">
+    <div class="topRight">
+    <div class="liveText"> LIVE </div>
+    </div>
+
+    <div class="NDI">NDI
+    <button onclick="debug()">DEBUG</button></div>
+
+
+  </div>
+
+
+
+
+<script>
+
+  const activeGreenBase = "#007700";
+  const activeGreenTitle = "#002200";
+
+  const activeYellowBase = "#999900";
+  const activeYellowTitle = "#333300";
+
+  const activeRedBase = "#770000";
+  const activeRedTitle = "#220000";
+
+
+  const cssRoot = document.querySelector(":root");
+
+  const socketRundown = new WebSocket("ws://localhost:8081");
+  // const socketNDI = new WebSocket("ws://localhost:XXXX"); // add a real URL when ready
+
+  socketRundown.onopen = () => {
+    console.log("Connected to update hub");
+  };
+
+  socketRundown.onmessage = (event) => {
+    console.log("Received:", event.data);
+    // update your DOM here
+  };
+
+  socketRundown.onclose = () => {
+    console.log("Disconnected from update hub");
+  };
+
+  function debug() {
+    //alert("debug button pressed");
+    cssRoot.style.setProperty('--activeBaseBG', activeRedBase);
+    cssRoot.style.setProperty('--activeTitleBG', activeRedTitle);
+  }
+</script>
+</body>
+</html>

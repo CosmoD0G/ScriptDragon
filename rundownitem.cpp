@@ -4,7 +4,7 @@ RundownItem::RundownItem() {
 
 }
 
-bool RundownItem::setActive(bool b) {
+void RundownItem::setActive(bool b) {
     isActive = b;
 }
 
@@ -15,3 +15,8 @@ void RundownItem::reset() {
 QVector<LiveCue> RundownItem::getCues() {
     return cues;
 }
+
+int RundownItem::getTimeRemaining() {
+    return timeRemaining;
+}
+

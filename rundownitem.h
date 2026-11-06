@@ -20,9 +20,10 @@ class RundownItem
 {
 public:
     RundownItem();
-    bool setActive(bool b);
+    void setActive(bool b);
     void reset();
     QVector<LiveCue> getCues();
+    int getTimeRemaining();
 
 
 private:
@@ -45,6 +46,7 @@ private:
     int timeSET;
 
     QVector<LiveCue> cues;
+
 
 
 

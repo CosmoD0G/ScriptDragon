@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "updatehub.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget *parent, UpdateHub *updateHub)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -19,3 +20,15 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+
+}
+
+
+void MainWindow::on_btn_Add_clicked()
+{
+
+}
+

@@ -19,6 +19,7 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -34,6 +35,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         livecue.h livecue.cpp
         livealert.h livealert.cpp
         updatehub.h updatehub.cpp
+        resources.qrc
+
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ScriptDragon APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -53,7 +57,11 @@ else()
     endif()
 endif()
 
-target_link_libraries(ScriptDragon PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(ScriptDragon PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::WebSockets
+    Qt${QT_VERSION_MAJOR}::HttpServer
+)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
